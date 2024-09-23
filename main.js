@@ -1,14 +1,25 @@
 import express from 'express'
-import dotenv from 'dotenv'
+import dotenv from  'dotenv'
+import  connectDB from './config/db.js';
 import chalk from 'chalk'
-import connectDB from './config/db.js'
+/*import testRoutes from './routes/testRoutes.js';*/
+import authRoutes from './routes/authRoutes.js';
 dotenv.config()
+
 connectDB()
 
-const app=express()
+var app=express()
+
 app.get('/',(req,res)=>{
-    res.send('HELLO WORLD')
+   res.send('Hello World')
 })
+app.use(express.json())
+
+/*app.use('/api/v1/test',testRoutes)*/
+app.use('/api/v1/auth',authRoutes)
+
 app.listen(5050,(req,res)=>{
-    console.log('server running')
+    console.log(chalk.bgGreenBright.whiteBright('Server Running'))
 })
+
+
